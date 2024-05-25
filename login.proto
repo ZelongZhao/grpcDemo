@@ -1,0 +1,41 @@
+// api/hotUpdate/v1/login.proto
+
+syntax = "proto3";
+
+package api.hotUpdate.v1;
+option go_package = "/v1";
+
+import "third_party/googleapis/google/api/annotations.proto";
+
+message LoginRequest {
+    string username = 1;
+    string password = 2;
+}
+
+message LoginResponse {
+    string token = 1;
+    string username = 2;
+    string nickname = 3;
+    string avatar = 4;
+    string email = 5;
+    string phone = 6;
+    string introduction = 7;
+    string roles = 8;
+    string permissions = 9;
+    string lastLoginTime = 10;
+}
+
+message MyString{
+    string str_ = 1;
+}
+
+service IMLoginService {
+    rpc Login(LoginRequest) returns (LoginResponse){
+        option (google.api.http) = {
+            post: "/v1/login"
+            body: "*"
+        };
+    }
+
+    rpc channel(stream MyString) returns (stream MyString);
+}
